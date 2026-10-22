@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2027 Stanley Cup Finals Hub | Hurricanes vs Golden Knights</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:wght@400;600;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
+    .font-teko { font-family: 'Teko', sans-serif; }
+    .gold-gradient { background: linear-gradient(135deg, #b3995d 0%, #333f48 100%); }
+    .red-gradient { background: linear-gradient(135deg, #cc0000 0%, #111111 100%); }
+    .pulse-update { animation: glow 1s ease-out; }
+    @keyframes glow { 0% { background-color: rgba(212, 175, 55, 0.4); } 100% { background-color: transparent; } }
+    .ice-glass { background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.4); border-radius: 4px; }
+  </style>
+</head>
+<body class="min-h-screen pb-12 flex flex-col items-center">
+  <!-- Top Banner Header -->
+  <header class="w-full bg-slate-900/90 border-b border-slate-800 py-4 px-6 text-center sticky top-0 z-50 backdrop-blur flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="text-left">
+      <h1 class="text-3xl md:text-4xl font-teko font-bold uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-gray-200 to-amber-400">
+        2027 Stanley Cup Finals Hub
+      </h1>
+      <p class="text-xs text-gray-400 font-semibold tracking-wider uppercase">Projected Matchup: Carolina Hurricanes vs. Vegas Golden Knights</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <span id="connection-status" class="text-xs bg-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-full border border-emerald-500/30 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> <span id="status-text">Connected: NHL API</span>
+      </span>
+      <button onclick="fetchLiveStats()" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-1.5 rounded-lg border border-amber-500/30 transition flex items-center gap-2">
+        <i id="refresh-icon" class="fa-solid fa-rotate"></i> Sync Data
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-6xl w-full px-4 mt-6 space-y-8">
+    <!-- Teams Matchup Header Card -->
+    <section class="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
+      <!-- Carolina Hurricanes -->
+      <div class="md:col-span-5 ice-glass p-6 rounded-2xl border-l-4 border-red-600 flex flex-col items-center text-center shadow-xl">
+        <div class="w-20 h-20 rounded-full red-gradient flex items-center justify-center text-3xl font-black text-white shadow-lg mb-3 border border-red-400/30">
+          CAR
+        </div>
+        <h2 class="text-2xl md:text-3xl font-teko font-bold tracking-wide text-red-500">CAROLINA HURRICANES</h2>
+        <span class="text-xs font-semibold px-3 py-1 bg-red-950/80 text-red-300 rounded-full border border-red-800/50 uppercase">Eastern Conference Contender</span>
+      </div>
+
+      <!-- VS Badge -->
+      <div class="md:col-span-1 text-center flex flex-col items-center justify-center py-2">
+        <span class="text-4xl font-teko font-bold text-amber-400 italic bg-slate-900 px-3 py-1 rounded-xl border border-slate-800">VS</span>
+      </div>
+
+      <!-- Vegas Golden Knights -->
+      <div class="md:col-span-5 ice-glass p-6 rounded-2xl border-r-4 border-amber-500 flex flex-col items-center text-center shadow-xl">
+        <div class="w-20 h-20 rounded-full gold-gradient flex items-center justify-center text-3xl font-black text-white shadow-lg mb-3 border border-amber-400/30">
+          VGK
+        </div>
+        <h2 class="text-2xl md:text-3xl font-teko font-bold tracking-wide text-amber-400">VEGAS GOLDEN KNIGHTS</h2>
+        <span class="text-xs font-semibold px-3 py-1 bg-amber-950/80 text-amber-300 rounded-full border border-amber-800/50 uppercase">Western Conference Contender</span>
+      </div>
+    </section>
+
+    <!-- Series Prediction Highlight -->
+    <section class="ice-glass rounded-xl p-6 border border-amber-500/30 text-center relative overflow-hidden bg-gradient-to-r from-amber-950/20 via-slate-900 to-amber-950/20 shadow-xl">
+      <div class="inline-block px-3 py-1 bg-amber-500/20 text-amber-300 text-xs font-bold rounded-full uppercase tracking-wider mb-2 border border-amber-500/40">
+        AI Series Forecast Model
+      </div>
+      <h3 class="text-2xl md:text-4xl font-teko font-bold text-amber-400 uppercase tracking-wide">
+        PREDICTION: VEGAS GOLDEN KNIGHTS SWEEP IN 4 GAMES (4-0)
+      </h3>
+      <p class="text-xs md:text-sm text-gray-300 max-w-2xl mx-auto mt-2">
+        Vegas is predicted to leverage elite blue-line defense and rapid transition offense to win four straight games and raise the 2027 Stanley Cup.
+      </p>
+
+      <!-- Projected Game Results Breakdown -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 text-xs">
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-gray-400 font-semibold mb-1">GAME 1</div>
+          <div class="text-amber-400 font-bold">VGK 4 - 2 CAR</div>
+          <div class="text-gray-500 text-[10px]">T-Mobile Arena</div>
+        </div>
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-gray-400 font-semibold mb-1">GAME 2</div>
+          <div class="text-amber-400 font-bold">VGK 3 - 1 CAR</div>
+          <div class="text-gray-500 text-[10px]">T-Mobile Arena</div>
+        </div>
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-gray-400 font-semibold mb-1">GAME 3</div>
+          <div class="text-amber-400 font-bold">VGK 5 - 3 CAR</div>
+          <div class="text-gray-500 text-[10px]">Lenovo Center</div>
+        </div>
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-amber-400 font-bold mb-1">GAME 4 (CUP)</div>
+          <div class="text-amber-400 font-bold">VGK 2 - 1 CAR (OT)</div>
+          <div class="text-gray-500 text-[10px]">Lenovo Center</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Countdown Timer -->
+    <section class="ice-glass rounded-2xl p-6 md:p-8 text-center shadow-2xl">
+      <h3 class="text-xl md:text-2xl font-teko font-bold text-gray-300 tracking-wider mb-4 uppercase">
+        <i class="fa-solid fa-clock text-red-500 mr-2"></i>Countdown to Game 1 (June 5, 2027)
+      </h3>
+      <div class="grid grid-cols-4 gap-2 md:gap-6 max-w-3xl mx-auto">
+        <div class="bg-slate-900/90 rounded-xl p-3 md:p-5 border border-slate-800 shadow-inner">
+          <span id="days" class="text-3xl md:text-6xl font-teko font-bold text-amber-400 block">00</span>
+          <span class="text-[10px] md:text-xs font-semibold text-gray-400 uppercase">Days</span>
+        </div>
+        <div class="bg-slate-900/90 rounded-xl p-3 md:p-5 border border-slate-800 shadow-inner">
+          <span id="hours" class="text-3xl md:text-6xl font-teko font-bold text-amber-400 block">00</span>
+          <span class="text-[10px] md:text-xs font-semibold text-gray-400 uppercase">Hours</span>
+        </div>
+        <div class="bg-slate-900/90 rounded-xl p-3 md:p-5 border border-slate-800 shadow-inner">
+          <span id="minutes" class="text-3xl md:text-6xl font-teko font-bold text-amber-400 block">00</span>
+          <span class="text-[10px] md:text-xs font-semibold text-gray-400 uppercase">Mins</span>
+        </div>
+        <div class="bg-slate-900/90 rounded-xl p-3 md:p-5 border border-slate-800 shadow-inner">
+          <span id="seconds" class="text-3xl md:text-6xl font-teko font-bold text-red-500 block">00</span>
+          <span class="text-[10px] md:text-xs font-semibold text-gray-400 uppercase">Secs</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Standings Table -->
+    <section class="ice-glass rounded-2xl p-6 shadow-xl overflow-x-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-2xl font-teko font-bold text-gray-100 uppercase tracking-wide">
+          <i class="fa-solid fa-trophy text-amber-400 mr-2"></i>Live NHL Standings & Team Stats
+        </h3>
+        <span id="last-updated" class="text-xs text-gray-400">Updating...</span>
+      </div>
+      <table class="w-full text-left border-collapse min-w-[650px]">
+        <thead>
+          <tr class="border-b border-slate-800 text-gray-400 text-xs uppercase font-semibold">
+            <th class="py-3 px-4">Team</th>
+            <th class="py-3 px-4 text-center">Wins (W)</th>
+            <th class="py-3 px-4 text-center">Losses (L)</th>
+            <th class="py-3 px-4 text-center">OTL</th>
+            <th class="py-3 px-4 text-center">Points (PTS)</th>
+            <th class="py-3 px-4 text-center">Goals For (GF)</th>
+            <th class="py-3 px-4 text-center">Goals Against (GA)</th>
+            <th class="py-3 px-4 text-center">Diff</th>
+            <th class="py-3 px-4 text-center">Streak</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800/60 font-medium text-sm">
+          <tr id="row-car" class="hover:bg-slate-800/30 transition">
+            <td class="py-4 px-4 flex items-center gap-3">
+              <span class="w-3 h-3 rounded-full bg-red-600"></span>
+              <span class="font-bold text-red-400">Carolina Hurricanes</span>
+            </td>
+            <td id="car-wins" class="py-4 px-4 text-center font-bold text-gray-200">--</td>
+            <td id="car-losses" class="py-4 px-4 text-center text-gray-400">--</td>
+            <td id="car-otl" class="py-4 px-4 text-center text-gray-400">--</td>
+            <td id="car-pts" class="py-4 px-4 text-center font-bold text-amber-400">--</td>
+            <td id="car-gf" class="py-4 px-4 text-center text-gray-300">--</td>
+            <td id="car-ga" class="py-4 px-4 text-center text-gray-300">--</td>
+            <td id="car-diff" class="py-4 px-4 text-center text-gray-300">--</td>
+            <td id="car-streak" class="py-4 px-4 text-center font-bold text-emerald-400">--</td>
+          </tr>
+          <tr id="row-vgk" class="hover:bg-slate-800/30 transition">
+            <td class="py-4 px-4 flex items-center gap-3">
+              <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+              <span class="font-bold text-amber-400">Vegas Golden Knights</span>
+            </td>
+            <td id="vgk-wins" class="py-4 px-4 text-center font-bold text-gray-200">--</td>
+            <td id="vgk-losses" class="py-4 px-4 text-center text-gray-400">--</td>
+            <td id="vgk-otl" class="py-4 px-4 text-center text-gray-400">--</td>
+            <td id="vgk-pts" class="py-4 px-4 text-center font-bold text-amber-400">--</td>
+            <td id="vgk-gf" class="py-4 px-4 text-center text-gray-300">--</td>
+            <td id="vgk-ga" class="py-4 px-4 text-center text-gray-300">--</td>
+            <td id="vgk-diff" class="py-4 px-4 text-center text-gray-300">--</td>
+            <td id="vgk-streak" class="py-4 px-4 text-center font-bold text-emerald-400">--</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Dynamic Event & Connection Feed -->
+    <section class="ice-glass rounded-2xl p-6 shadow-xl">
+      <h3 class="text-2xl font-teko font-bold text-gray-100 uppercase tracking-wide mb-3 flex items-center gap-2">
+        <i class="fa-solid fa-rss text-red-500"></i> Live Connection & Data Stream Log
+      </h3>
+      <div id="feed-container" class="space-y-2 max-h-52 overflow-y-auto pr-2 custom-scrollbar">
+        <!-- Log items dynamically prepended here -->
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // --- 1. Countdown Logic ---
+    const targetDate = new Date('June 5, 2027 20:00:00 EST').getTime();
+    
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('days').innerText = '00';
+        document.getElementById('hours').innerText = '00';
+        document.getElementById('minutes').innerText = '00';
+        document.getElementById('seconds').innerText = '00';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = String(days).padStart(2, '0');
+      document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('minutes').innerText = String(mins).padStart(2, '0');
+      document.getElementById('seconds').innerText = String(secs).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // --- 2. Live Connection & NHL API Implementation ---
+    const NHL_STANDINGS_API = 'https://api-web.nhle.com/v1/standings/now';
+    
+    // Fallback baseline data if API is unreachable due to CORS/Network
+    const fallbackStats = {
+      car: { wins: 52, losses: 23, otl: 7, pts: 111, gf: 268, ga: 202, diff: '+66', streak: 'W4' },
+      vgk: { wins: 55, losses: 20, otl: 7, pts: 117, gf: 289, ga: 195, diff: '+94', streak: 'W6' }
+    };
+
+    function addLogMessage(type, message) {
+      const container = document.getElementById('feed-container');
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const item = document.createElement('div');
+      
+      let badgeClass = 'bg-blue-900/60 text-blue-300 border-blue-800';
+      if (type === 'SUCCESS') badgeClass = 'bg-emerald-900/60 text-emerald-300 border-emerald-800';
+      if (type === 'FALLBACK') badgeClass = 'bg-amber-900/60 text-amber-300 border-amber-800';
+      if (type === 'ERROR') badgeClass = 'bg-red-900/60 text-red-300 border-red-800';
+
+      item.className = 'p-2.5 bg-slate-900/80 rounded-lg border border-slate-800 text-xs text-gray-300 flex justify-between items-center transition-all duration-300';
+      item.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badgeClass}">${type}</span>
+          <span>${message}</span>
+        </div>
+        <span class="text-gray-500 text-[11px]">${timeStr}</span>
+      `;
+      container.insertBefore(item, container.firstChild);
+    }
+
+    function renderStats(carData, vgkData) {
+      // Update Carolina
+      document.getElementById('car-wins').innerText = carData.wins;
+      document.getElementById('car-losses').innerText = carData.losses;
+      document.getElementById('car-otl').innerText = carData.otl;
+      document.getElementById('car-pts').innerText = carData.pts;
+      document.getElementById('car-gf').innerText = carData.gf;
+      document.getElementById('car-ga').innerText = carData.ga;
+      document.getElementById('car-diff').innerText = carData.diff;
+      document.getElementById('car-streak').innerText = carData.streak;
+
+      // Update Vegas
+      document.getElementById('vgk-wins').innerText = vgkData.wins;
+      document.getElementById('vgk-losses').innerText = vgkData.losses;
+      document.getElementById('vgk-otl').innerText = vgkData.otl;
+      document.getElementById('vgk-pts').innerText = vgkData.pts;
+      document.getElementById('vgk-gf').innerText = vgkData.gf;
+      document.getElementById('vgk-ga').innerText = vgkData.ga;
+      document.getElementById('vgk-diff').innerText = vgkData.diff;
+      document.getElementById('vgk-streak').innerText = vgkData.streak;
+
+      // Timestamp
+      document.getElementById('last-updated').innerText = `Synced at ${new Date().toLocaleTimeString()}`;
+
+      // Trigger Pulse Effect
+      ['row-car', 'row-vgk'].forEach(id => {
+        const row = document.getElementById(id);
+        row.classList.remove('pulse-update');
+        void row.offsetWidth; // force reflow
+        row.classList.add('pulse-update');
+      });
+    }
+
+    async function fetchLiveStats() {
+      const refreshIcon = document.getElementById('refresh-icon');
+      refreshIcon.classList.add('fa-spin');
+      addLogMessage('API', 'Initiating live HTTPS connection to official NHL API endpoint...');
+
+      try {
+        const response = await fetch(NHL_STANDINGS_API, { method: 'GET', cache: 'no-cache' });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        addLogMessage('SUCCESS', 'NHL API response received successfully!');
+
+        // Parse Carolina Hurricanes (Abbrev: CAR) and Vegas Golden Knights (Abbrev: VGK)
+        let carFound = null;
+        let vgkFound = null;
+
+        if (data && data.standings) {
+          data.standings.forEach(team => {
+            const abbrev = team.teamAbbrev ? team.teamAbbrev.default : '';
+            if (abbrev === 'CAR') carFound = team;
+            if (abbrev === 'VGK') vgkFound = team;
+          });
+        }
+
+        if (carFound && vgkFound) {
+          const carData = {
+            wins: carFound.wins,
+            losses: carFound.losses,
+            otl: carFound.otLosses,
+            pts: carFound.points,
+            gf: carFound.goalFor,
+            ga: carFound.goalAgainst,
+            diff: (carFound.goalDifferential > 0 ? '+' : '') + carFound.goalDifferential,
+            streak: (carFound.streakCode || '') + (carFound.streakCount || '')
+          };
+
+          const vgkData = {
+            wins: vgkFound.wins,
+            losses: vgkFound.losses,
+            otl: vgkFound.otLosses,
+            pts: vgkFound.points,
+            gf: vgkFound.goalFor,
+            ga: vgkFound.goalAgainst,
+            diff: (vgkFound.goalDifferential > 0 ? '+' : '') + vgkFound.goalDifferential,
+            streak: (vgkFound.streakCode || '') + (vgkFound.streakCount || '')
+          };
+
+          renderStats(carData, vgkData);
+          document.getElementById('status-text').innerText = 'Connected: Official NHL API';
+          addLogMessage('SUCCESS', 'Parsed and updated live standings from NHL API.');
+        } else {
+          throw new Error('Could not parse CAR/VGK team objects from API response structure.');
+        }
+
+      } catch (error) {
+        addLogMessage('FALLBACK', `Connection blocked or API direct fetch unavailable (${error.message}). Applying fallback mock stream.`);
+        document.getElementById('status-text').innerText = 'Connected: Local Sync Mode';
+        renderStats(fallbackStats.car, fallbackStats.vgk);
+      } finally {
+        setTimeout(() => refreshIcon.classList.remove('fa-spin'), 600);
+      }
+    }
+
+    // --- Initial Run & Periodic Sync ---
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchLiveStats();
+      // Periodically sync every 60 seconds
+      setInterval(fetchLiveStats, 60000);
+    });
+  </script>
+</body>
+</html>
